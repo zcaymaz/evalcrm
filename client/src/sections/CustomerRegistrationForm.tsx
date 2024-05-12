@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import React, { useState } from 'react';
 import { Button, Flex, Form, Input, Select, message } from 'antd';
 
 const CustomerRegistrationForm = () => {

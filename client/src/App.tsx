@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import CustomerRegistrationForm from './sections/CustomerRegistrationForm';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -54,7 +55,7 @@ const App: React.FC = () => {
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
+          {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb>
@@ -67,7 +68,8 @@ const App: React.FC = () => {
             }}
           >
             Bill is a cat.
-          </div>
+          </div> */}
+          <CustomerRegistrationForm/>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
