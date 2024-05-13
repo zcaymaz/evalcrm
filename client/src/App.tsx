@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -41,7 +41,26 @@ const items: MenuItem[] = [
 
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [username, setUsername] = useState('');
+  const [id, setId] = useState('');
   const isLogged = localStorage.getItem("token") ? true : false;
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      const payload = JSON.parse(jsonPayload);
+      if (payload.username, payload.id) {
+        setUsername(payload.username);
+        setId(payload.id);
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -60,7 +79,9 @@ const App: React.FC = () => {
             />
           </Sider>
           <Layout>
-            <Header style={{ padding: 0, background: "#dedede" }} />
+            <Header style={{ padding: 0, background: "#dedede" }}>
+              {username ? `Username: ${username}` : 'No username found'}  {id ? `id: ${id}` : 'No username found'}
+            </Header>
             <Content style={{ margin: "0 16px" }}>
               <Routers />
             </Content>

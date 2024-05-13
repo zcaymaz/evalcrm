@@ -3,53 +3,52 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const userCtrl = {
-    register: async (req, res) =>{
+    register: async (req, res) => {
         try {
-            const {name, password} = req.body;
-
-            const user = await Users.findOne({name})
-            if(user) return res.status(400).json({msg: "The name already exists."})
-
-            if(password.length < 6) 
-                return res.status(400).json({msg: "Password is at least 6 characters long."})
-
-            // Password Encryption
-            const passwordHash = await bcrypt.hash(password, 10)
-            const newUser = new Users({
-                name, password: passwordHash ,
-            })
-
-            // Save mongodb
-            await newUser.save()
-
-            // // Then create jsonwebtoken to authentication
-            // const accesstoken = createAccessToken({id: newUser._id})
-            // const refreshtoken = createRefreshToken({id: newUser._id})
-
-            // res.cookie('refreshtoken', refreshtoken, {
-            //     httpOnly: true,
-            //     path: 'http://localhost:3001/user/refresh_token',
-            //     maxAge: 7*24*60*60*1000 // 7d
-            // })
-
-            // res.json({accesstoken})
-
+          const { prm, email, name, surname, username, password } = req.body
+    
+          const prmdeger = 'malfefe'
+          if (prm !== prmdeger) {
+            return res.status(400).json({ msg: '...' })
+          }
+          const user = await Users.findOne({ username })
+          if (user)
+            return res.status(400).json({ msg: 'Bu kullanıcı adı daha önce alınmıştır.' })
+    
+          if (password.length < 6)
+            return res
+              .status(400)
+              .json({ msg: 'Şifre en az 6 karakterden oluşmalıdır.' })
+    
+          // Password Encryption
+          const passwordHash = await bcrypt.hash(password, 10)
+          const newUser = new Users({
+            email,
+            name,
+            surname,
+            username,
+            password: passwordHash,
+          })
+    
+          // Save mongodb
+          await newUser.save()
+          res.json('Kullanıcı veya kullanıcılar başarıyla oluştu.')
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+          return res.status(500).json({ msg: err.message })
         }
-    },
+      },
     login: async (req, res) =>{
         try {
-            const {name, password} = req.body;
+            const {username, password} = req.body;
 
-            const user = await Users.findOne({name})
+            const user = await Users.findOne({username})
             if(!user) return res.status(400).json({msg: "Kullanıcı Bulunamadı."})
 
             const isMatch = await bcrypt.compare(password, user.password)
             if(!isMatch) return res.status(400).json({msg: "Şifre yanlış."})
 
             // If login success , create access token and refresh token
-            // const accesstoken = createAccessToken({id: user._id})
+            const accesstoken = createAccessToken({id: user._id, username: user.username, name: user.name, surname: user.surname, email: user.email})
             // const refreshtoken = createRefreshToken({id: user._id})
 
             // res.cookie('refreshtoken', refreshtoken, {
@@ -58,7 +57,7 @@ const userCtrl = {
             //     maxAge: 7*24*60*60*1000 // 7d
             // })
 
-            res.json({ name:user.name })
+            res.json({ token:accesstoken })
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -127,7 +126,7 @@ const userCtrl = {
 
 
 const createAccessToken = (user) =>{
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '11m'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '121m'})
 }
 const createRefreshToken = (user) =>{
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '7d'})
