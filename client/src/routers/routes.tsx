@@ -1,33 +1,20 @@
-/* eslint-disable react-refresh/only-export-components */
-import { lazy } from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "../pages/Home";
+import CustomerAdd from "../pages/CustomerAdd";
+import CustomerDetail from "../pages/CustomerDetail";
+import CustomerList from "../pages/CustomerList";
 
-import { Navigate } from 'react-router-dom';
+function Routers() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/customeradd" element={<CustomerAdd />} />
+        <Route path="/customerlist" element={<CustomerList />} />
+        <Route path="/customerdetail" element={<CustomerDetail />} />
+      </Routes>
+    </Router>
+  );
+}
 
-const CustomerAdd = lazy(() => import('../pages/CustomerAdd/index'));
-const CustomerDetail = lazy(() => import('../pages/CustomerDetail/index'));
-const CustomerList = lazy(() => import('../pages/CustomerList/index'));
-// const Login = lazy(() => import('../pages/Login/index'));
-
-const routes = {
-  expense: [],
-  default: [
-    {
-      path: '/login',
-      element: <Navigate to="/" />,
-    },
-    {
-      path: '/logout',
-      element: <CustomerAdd />,
-    },
-    {
-      path: '/about',
-      element: <CustomerList />,
-    },
-    {
-      path: '/people',
-      element: <CustomerDetail />,
-    },
-  ],
-};
-
-export default routes;
+export default Routers;

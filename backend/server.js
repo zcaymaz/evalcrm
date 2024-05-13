@@ -18,7 +18,7 @@ app.use('/api', require('./routes/serviceRouter'));
 
 // Connect to MongoDB
 const URI = process.env.DB_CONNECTION_STRING;
-mongoose.connect(URI, { useCreateIndex: true, useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to database'))
   .catch((err) => console.log(err));
 
