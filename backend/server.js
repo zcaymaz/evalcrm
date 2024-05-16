@@ -12,19 +12,15 @@ app.use(cookieParser());
 app.use(cors());
 app.use(fileUpload({ useTempFiles: true }));
 
-// Routes
 app.use('/user', require('./routes/userRouter'));
 app.use('/api', require('./routes/serviceRouter'));
 
-// Connect to MongoDB
 const URI = process.env.DB_CONNECTION_STRING;
 mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to database'))
   .catch((err) => console.log(err));
 
-// Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
-  // Set static folder
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
