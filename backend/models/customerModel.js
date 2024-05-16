@@ -1,33 +1,35 @@
 const mongoose = require('mongoose')
 
-const serviceSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
     name: {
         type:String,
         required:true
     },
-    serviceName: {
+    surname: {
         type:String,
+        required:true
     },
-    serviceGsmno: {
+    companyname: {
         type:String,
+        required:true
     },
-    serviceAddress:{
+    tcorvkn:{
         type: String,
     },
-    serviceDesc:{
+    address:{
         type: String,
     },
-    serviceBrand:{
+    description:{
         type: String,
     },
-    serviceModel:{
+    debitrows:{
+        type: Array,
+    },
+    totaldebit: {
         type: String,
     },
-    serviceType:{
+    totalcredit: {
         type: String,
-    },
-    servicePrice:{
-        type: Number,
     },
     isArchived: {
         type: Boolean,
@@ -37,4 +39,4 @@ const serviceSchema = new mongoose.Schema({
     timestamps: true
 })
 
-module.exports = mongoose.model("Service", serviceSchema)
+module.exports = mongoose.model("Customer", customerSchema)
