@@ -21,6 +21,19 @@ const debitrowsSchema = new mongoose.Schema({
     unitprice:{
         type: String,
     },
+    isInstalment: {
+        type: Boolean,
+        default: false
+    },
+    instalmentcount: {
+        type: String,
+    },
+    instalmentdates: {
+        type: String,
+    },
+    sellbydate: {
+        type: String,
+    },
     isArchived: {
         type: Boolean,
         default: false

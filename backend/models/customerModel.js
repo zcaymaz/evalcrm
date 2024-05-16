@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const customerSchema = new mongoose.Schema({
-    name: {
+    customername: {
         type:String,
         required:true
     },
-    surname: {
+    customersurname: {
         type:String,
         required:true
     },
@@ -19,7 +19,7 @@ const customerSchema = new mongoose.Schema({
     address:{
         type: String,
     },
-    description:{
+    gsmno:{
         type: String,
     },
     debitrows:{
@@ -31,9 +31,8 @@ const customerSchema = new mongoose.Schema({
     totalcredit: {
         type: String,
     },
-    isArchived: {
-        type: Boolean,
-        default: false
+    userid: {
+        type: String,
     },
 }, {
     timestamps: true

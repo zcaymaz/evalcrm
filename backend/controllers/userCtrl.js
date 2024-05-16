@@ -50,7 +50,7 @@ const userCtrl = {
       if (!isMatch) return res.status(400).json({ msg: "Şifre yanlış." });
 
       const accesstoken = createAccessToken({
-        id: user._id,
+        userid: user._id,
         username: user.username,
         name: user.name,
         surname: user.surname,
